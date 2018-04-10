@@ -1,3 +1,11 @@
+/*
+    Comments by Pascal Laurent
+    ==========================
+    I like the code. Lots of comments helping other programmers to read and understand the code
+    Adding the Note at the top would be more helpful. I would also add comments explaining what
+    the program does.
+*/
+
 #include <stdio.h>
 #include <cs50.h>
 #include <math.h>

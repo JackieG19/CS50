@@ -1,3 +1,9 @@
+/*
+    Comment by: Pascal Laurent
+    You did a wonderful job with this program. It would be nice to have a brief description explaining
+    what the program does. I would also remove the unecessary comments.  Overall the program
+    looks great.
+*/
 #include <stdio.h>
 #include <cs50.h>
 
