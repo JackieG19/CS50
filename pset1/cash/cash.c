@@ -1,3 +1,5 @@
+//reviewed by LP (1 suggestion)
+
 #include <stdio.h>
 #include <cs50.h>
 #include <math.h>
@@ -6,7 +8,7 @@ int main(void)
 {
     float dollars;
     int coins = 0;
-    int cents;
+    int cents; // LP in my code I don't haave this i added int in the conversion
     do
     {
         dollars = get_float("Change owed: "); // ex. 0.32

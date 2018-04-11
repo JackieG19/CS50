@@ -1,3 +1,4 @@
+//reviewed by LP (1 suggestion)
 #include <stdio.h>
 #include <cs50.h>
 
@@ -15,7 +16,7 @@ int main(void)
 
     for (int i = 0; i < height; i++)
     {
-        for (int spaces = 0; spaces < (height - i - 1); spaces++)
+        for (int spaces = 0; spaces < (height - i - 1); spaces++) //LP don't need the -1 to work
         {
             printf(" "); // print space
         }

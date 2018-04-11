@@ -1,3 +1,4 @@
+//reviewed by LP (1 suggestion)
 #include <stdio.h>
 #include <cs50.h>
 
@@ -15,7 +16,7 @@ int main(void)
     {
         //minutes++;
         //bottles = get_int();
-        printf("minutes: %i\n", minutes);
+        printf("minutes: %i\n", minutes);  //LP don't need to print twice
         printf("bottles: %i\n", bottles);
     }
 
