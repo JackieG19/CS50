@@ -11,31 +11,36 @@ int main(int argc, string argv[])
         printf("Error: Enter a postive number\n");
         return 1; // stops progress
     }
-    int key = atoi(argv[1]) % 26;
+    int key = atoi(argv[1]);
     string plaintext = get_string("plaintext: ");
     printf("ciphertext: ");
 
     for (int i = 0; i < strlen(plaintext); i++)
     {
-        if (isalpha(plaintext[i] + key))
-        {
-            int begin = 0; // beginning of the alphabet
-            int end = 0; // the end of the alpabet
+        char ciphertext;
 
-            if (isupper(plaintext[i] + key)) // uppercae letters
+        if (isalpha(plaintext[i]))
+        {
+            // int begin = 0; // beginning of the alphabet
+            // int end = 0; // the end of the alpabet
+
+            if (isupper(plaintext[i])) // uppercae letters
             {
-                begin = 'A';
-                end = 'Z';
+                // begin = 'A';
+                // end = 'Z';
+                ciphertext = plaintext[i] + key;
+                printf("%c", ciphertext);
+
             }
 
-            else if (islower(plaintext[i] + key)) // lowercase letters
+            else if (islower(plaintext[i])) // lowercase letters
             {
-                begin = 'a';
-                end = 'z';
+                // begin = 'a';
+                // end = 'z';
+                ciphertext = plaintext[i] + key;
+                printf("%c", ciphertext);
             }
         }
-        printf("\n");
-        return 0;
     }
-
+    printf("\n");
 }
