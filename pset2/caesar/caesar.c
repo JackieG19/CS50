@@ -21,23 +21,15 @@ int main(int argc, string argv[])
 
         if (isalpha(plaintext[i]))
         {
-            // int begin = 0; // beginning of the alphabet
-            // int end = 0; // the end of the alpabet
-
             if (isupper(plaintext[i])) // uppercae letters
             {
-                // begin = 'A';
-                // end = 'Z';
-                ciphertext = plaintext[i] + key;
+                ciphertext = ((plaintext[i] - 'A' + key) % 26) + 'A';
                 printf("%c", ciphertext);
-
             }
 
             else if (islower(plaintext[i])) // lowercase letters
             {
-                // begin = 'a';
-                // end = 'z';
-                ciphertext = plaintext[i] + key;
+                ciphertext = ((plaintext[i] - 'a' + key) % 26) + 'a';
                 printf("%c", ciphertext);
             }
         }
