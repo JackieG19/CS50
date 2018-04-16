@@ -32,19 +32,16 @@ int main(int argc, string argv[])
         if (isupper(plaintext[i])) // uppercase letters
         {
             ciphertext = (((plaintext[i] + key) - 65) % 26) + 65;
-            //printf("%c", ciphertext);
         }
 
         if (islower(plaintext[i])) // lowercase letters
         {
             ciphertext = (((plaintext[i] + key) - 97) % 26) + 97;
-           // printf("%c", ciphertext);
         }
 
         if (isalpha(plaintext[i]))
         {
-             plaintext[i] = ciphertext;
-            // printf("%c", ciphertext);
+            plaintext[i] = ciphertext;
         }
 
         printf("%c", ciphertext);
