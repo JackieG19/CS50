@@ -19,28 +19,28 @@ int main(int argc, string argv[])
     int counter = 0;
     //char ciphertext; // looks text by charaters
 
-    for (int i = 0, length = strlen(plaintext); i < length; i++) //scramble mah eggs
+    for (int i = 0, length = strlen(plaintext); i < length; i++)
     {
         int klength = 0;
 
         if (isalpha(plaintext[i]))
         {
             int key = k[counter] - 'A';
-            if (isupper(plaintext[i])) //support for upper case
+            if (isupper(plaintext[i]))
             {
                 printf("%c", ((plaintext[i] - 'A' + key) % 26) + 'A');
             }
 
-            else // if it's not upper it's lower....
+            else
             {
                 printf("%c", ((plaintext[i] - 'a' + key) % 26) + 'a');
             }
 
-            counter = (counter + 1) % klength; // kick/push k
+            counter = (counter + 1) % klength;
         }
         else
         {
-            printf("%c", plaintext[i]); //for all others
+            printf("%c", plaintext[i]);
         }
     }
     printf("\n");
