@@ -8,46 +8,47 @@ int main(int argc, string argv[])
 {
     string plaintext;
 
-    if (argc != 2 || strlen(argv[1]) == 0) // by default, argc will be 2 because ./caesar is the first argument
+    if (argc != 2 || strlen(argv[1]) == 0)
     {
         printf("Usage: ./vigenere k\n");
         return 1; // stops progress, value of 1 returns error
     }
-    int key = (argv[1]);
-    int klength = strlen(k);
+    string k = argv[1];
 
-    // if (key < 0)
+    // if (!isalpha(k[counter]) // if it is no an alphabet
     // {
-    //     printf("Enter positive number after filename \n");
+    //     printf("Error \n");
     //     return 1;
     // }
 
     plaintext = get_string("plaintext: "); // string variable user input
     printf("ciphertext: ");
-    char ciphertext;
     int counter = 0;
+    //char ciphertext; // looks text by charaters
 
-    for (int i = 0, length = strlen(plaintext); i < length; i++)
+    for (int i = 0, length = strlen(plaintext); i < length; i++) //scramble mah eggs
     {
-        ciphertext = plaintext[i];
+        int klength = 0;
 
-        if (isupper(plaintext[i])) // uppercase letters
+        if (isalpha(plaintext[i]))
         {
-            ciphertext = (((plaintext[i] + key) - 65) % 26) + 65;// key counter
-        }
+            int key = k[counter] - 'A';
+            if (isupper(plaintext[i])) //support for upper case
+            {
+                printf("%c", ((plaintext[i] - 'A' + key) % 26) + 'A');
+            }
 
-        if (islower(plaintext[i])) // lowercase letters
+            else // if it's not upper it's lower....
+            {
+                printf("%c", ((plaintext[i] - 'a' + key) % 26) + 'a');
+            }
+
+            counter = (counter + 1) % klength; // kick/push k
+        }
+        else
         {
-            ciphertext = (((plaintext[i] + key) - 97) % 26) + 97;
+            printf("%c", plaintext[i]); //for all others
         }
-
-        if (isalpha(plaintext[i])) // skip num when hashing
-        {
-            plaintext[i] = ciphertext;
-        }
-
-        printf("%c", ciphertext);
     }
-
     printf("\n");
 }
