@@ -14,13 +14,6 @@ int main(int argc, string argv[])
         return 1; // stops progress, value of 1 returns error
     }
     string k = argv[1];
-
-    // if (!isalpha(k[counter]) // if it is no an alphabet
-    // {
-    //     printf("Error \n");
-    //     return 1;
-    // }
-
     plaintext = get_string("plaintext: "); // string variable user input
     printf("ciphertext: ");
     int counter = 0;
