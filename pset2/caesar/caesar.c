@@ -23,7 +23,7 @@ int main(int argc, string argv[])
 
     plaintext = get_string("plaintext: "); // string variable user input
     printf("ciphertext: ");
-    char ciphertext;
+    char ciphertext; // looks text by charaters
 
     for (int i = 0, length = strlen(plaintext); i < length; i++)
     {
