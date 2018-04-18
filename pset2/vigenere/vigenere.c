@@ -7,13 +7,23 @@
 int main(int argc, string argv[])
 {
     string plaintext;
-// if argument is not equal to 2 OR the first argument is equal to 0
-    if (argc != 2)
+    string k = argv[1]; // first argument
+
+    if (argc != 2) // if argument is not equal to 2
     {
         printf("Usage: ./vigenere k\n");
         return 1; // stops progress, returns error
     }
-    string k = argv[1]; // first argument
+    {
+        for (int i = 0, key = strlen(k); i < key; i++)// if key is valid will pass through
+        {
+            if (!isalpha(k[i])) // if not, will not pass and show error
+            {
+                printf("Error\n");
+                return 1;
+            }
+        }
+    }
 
     plaintext = get_string("plaintext: "); // string variable user input
 
@@ -23,7 +33,7 @@ int main(int argc, string argv[])
 
     int klength = strlen(k); // grabing the string length of k
 
-    for (int i = 0, counter = 0; i < wlength; i++) //strlen() function calculates the length of input.
+    for (int i = 0, counter = 0; i < wlength; i++) // calculates the length of input.
     {
         int keyword = tolower(k[counter % klength]) - 'a'; // tracks occurrences of a character in the input
 
