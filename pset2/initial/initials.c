@@ -1,3 +1,9 @@
+/*
+i'd say sort your import alphabetically.
+looks good.
+*/
+
+
 #include<stdio.h>
 #include<cs50.h>
 #include <string.h>

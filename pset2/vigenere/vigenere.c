@@ -1,3 +1,13 @@
+/*
+I'd put  wlength and klength vars into for loop declaration since u r not using them anywhere else in ur program.
+like this: for (int i = 0, counter = 0, wlength = strlen(plaintext), klength = strlen(k); i < wlength; i++)
+but it is a matter of taste.
+
+return something from int main()
+
+*/
+
+
 #include<stdio.h>
 #include<cs50.h>
 #include <string.h>

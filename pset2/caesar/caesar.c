@@ -1,3 +1,11 @@
+/*
+i think you have to do <<not isalpha()>> instead of <<isalpha()>> u have now.
+it's recommended to use <<return 0 or return someNum>>  when using int main()
+if (key < 0) -- good call. I'd do  if (key <= 0).
+*/
+
+
+
 #include<stdio.h>
 #include<cs50.h>
 #include <string.h>
