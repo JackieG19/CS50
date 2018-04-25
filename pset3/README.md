@@ -10,11 +10,9 @@
 
 4. Synthesize songs.
 
-[Check50](https://cs50.me/checks/2e03716693964ac8e3bd940229fdac6e54c73cc0) to make sure it passes CS50 standards
+Check50 to make sure it passes CS50 standards
 
 #### Resources:
-
-[Mathematics Of Music](https://web.stanford.edu/~zhoufan/MathematicsOfMusic.pdf.)
 
 [Pitch Standard](https://en.wikipedia.org/wiki/A440_(pitch_standard))
 
