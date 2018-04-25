@@ -98,8 +98,8 @@ int frequency(string note) // Calculates frequency (in Hz) of a note
         freq *= (pow(2.0, (1.0 / 12.0)));   // multiply from 2 1/12
     }
 
-    int ret = round(freq);  // return frequency value as an integer
-    return ret;
+    int hertz = round(freq);  // return frequency value as an integer
+    return hertz;
 
 }
 
