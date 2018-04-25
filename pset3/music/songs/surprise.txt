@@ -1,6 +1,6 @@
 F4@1/8
 G4@1/8
-Bb4@1/8     B flat 4th octave 1/8 duration
+Bb4@1/8
 G4@1/8
 D5@1/8
 D5@1/4

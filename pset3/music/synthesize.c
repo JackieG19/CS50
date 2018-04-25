@@ -23,7 +23,7 @@ int main(int argc, string argv[])
     // Expect notes from user until EOF
     while (true)
     {
-        // Expect note from a user one at a time
+        // Expect note
         string line = get_string("");
 
         // Check for EOF
@@ -37,14 +37,11 @@ int main(int argc, string argv[])
         {
             rest_write(s, 1);
         }
-        // Else it proceeds to "tokenize" the user’s input into two tokens:
-        // a note which is left of the @ in the user’s input, and
-        // a fraction, which can be found to the right of the @ in the user’s input
         else
         {
             // Parse line into note and duration
-            string note = strtok(line, "@"); // program uses a function called strtok to facilitate such....
-            string fraction = strtok(NULL, "@"); //...it then writes that note (or rest) to a file.
+            string note = strtok(line, "@");
+            string fraction = strtok(NULL, "@");
 
             // Write note to song
             note_write(s, frequency(note), duration(fraction));

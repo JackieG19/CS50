@@ -23,9 +23,9 @@ int main(int argc, string argv[])
     {
         octave = atoi(argv[1]);
         if (octave < 0 || octave > 8)
-        {   //function called fprintf to print error messages to stderr (standard error)
+        {
             fprintf(stderr, "Invalid octave\n");
-            return 1; // main returns 1 in case of error
+            return 1;
         }
     }
     else if (argc > 2)
@@ -41,14 +41,8 @@ int main(int argc, string argv[])
     for (int i = 0, n = sizeof(NOTES) / sizeof(string); i < n; i++)
     {
         // Append octave to note
-        char note[4]; // allocate space for a (short) string by declaring an array for 4 chars
-
-        // stores its output in a string, create a string from two placeholders, %s and %i
-        // use sprintf to store a NOTES[i] (a string, ergo the %s) in that memory followed by octave (an int, ergo the %i).
+        char note[4];
         sprintf(note, "%s%i", NOTES[i], octave);
-        // take values like "A" and 4 and, effectively,
-        // concatenate them in order to create a new string,
-        // the value of which is, for instance, A4.
 
         // Calculate frequency of note
         int f = frequency(note);

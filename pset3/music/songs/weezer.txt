@@ -1,4 +1,4 @@
-D#3@1/8     D sharp 3rd octave 1/8 duration
+D#3@1/8
 D#3@1/8
 C4@1/4
 D3@1/8
@@ -9,7 +9,7 @@ F4@1/8
 F4@1/8
 F4@1/8
 
-G4@1/8      note G 4th octave 1/8 duration
+G4@1/8
 F4@1/8
 C4@1/8
 D#4@1/4

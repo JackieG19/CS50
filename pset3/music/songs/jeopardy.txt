@@ -1,31 +1,31 @@
 G4@1/4
-C5@1/4      The first note in the theme song for Jeopardy is indeed a quarter note (per the 1/4),
-G4@1/4      specifically a G in the fourth octave.
+C5@1/4
+G4@1/4
 C4@1/4
 G4@1/4
 C5@1/4
 G4@1/4
-        notice there are two blank lines, the implication of which is that the seventh
-        note is followed by two eighth rests (or, equivalently, one quarter rest).
+
+
 G4@1/4
 C5@1/4
 G4@1/4
-C5@1/4              A quarter note, but that one’s a C in the fifth octave
-E5@3/8              (a few keys to the right of the first one on a piano).
-D5@1/8              Thereafter are five additional quarter notes.
+C5@1/4
+E5@3/8
+D5@1/8
 C5@1/8
 B4@1/8
 A4@1/8
 Ab4@1/8
-G4@1/4      note G 4th octave 1/4 duration
-C5@1/4      note C 5th octave 1/4 duration
+G4@1/4
+C5@1/4
 G4@1/4
 C4@1/4
 G4@1/4
 C5@1/4
 G4@1/4
-            After those rests, the song resumes,
-            resting only once more several notes, here, later.
+
+
 C5@3/8
 A4@1/8
 G4@1/4
