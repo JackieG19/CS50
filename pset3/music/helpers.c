@@ -1,3 +1,9 @@
+//Program works well. Passes both check50 and style50.
+//PR- recommendations
+//For duration function instead of using many if and else if, Switch statements can be used which is more
+//efficient in this case
+//variable octave holds a magic number, you can consider changing that.
+
 #include <cs50.h>
 #include <math.h>
 #include <string.h>
@@ -115,5 +121,3 @@ bool is_rest(string s)
         return false;
     }
 }
-
-
