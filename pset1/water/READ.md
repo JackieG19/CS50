@@ -7,3 +7,5 @@ not a shower), meanwhile, might be 16 ounces. So taking a 1-minute shower is aki
 Taking (more realistically, perhaps!) a 10-minute shower, then, is like using 120 bottles of water. Deer Park, that’s a lot of 
 water! Of course, bottled water itself is wasteful; best to use reusable containers when you can. But it does put into 
 perspective what’s being spent in a shower!
+
+https://docs.cs50.net/problems/water/water.html
