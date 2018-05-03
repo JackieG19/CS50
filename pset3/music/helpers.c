@@ -41,8 +41,11 @@ int duration(string fraction)   // Fraction (numerator--->1/4<---denominator)
 
 int frequency(string note) // Calculates frequency (in Hz) of a note
 {
+    // octave will always be at the end
+    // In the string,the input can be that the first array[0] is note and second array[1] is an octave..or...
+    // the input can have note in the first array[0], accidental in the second place[1], and octave in the third[3]
     int octave = note[strlen(note) - 1];
-    octave -= 48; // adjusting to an ascii into an int value
+    octave -= 48; // adjusting to an ascii "0" into an int value
 
     double freq = 0.0;  // the frequency of note in the given octave
 

@@ -1,0 +1,135 @@
+TODO:
+
+1. Open File:___________________________________________________________
+file *inptr = fopen ("foo.bmp", "r"); - opens foo.bmp for reading
+file *outptr = fopen ("bar.bmp", "w"); - opens bar.bmp for writing
+
+2. Update header's info for outfile:_____________________________________
+
+*Bitmaps:
+- are just arrangenment of bytes
+- how do we interpret this arrangement
+- bmp.h
+
+*Bitmap Infoheader:
+- biWidth
+  --width of image (in pixels)
+  --does not include padding
+
+- biHeight
+  --height of image (in pixels)
+
+- biSizeImage
+  --total size of image (in bytes)
+  --includes pixels and padding
+
+*Bitmap Fileheader:
+- bfSize
+  --total size of file (in bytes)
+  --includes pixels, padding, and headers
+
+bf.bfSize = bi.biSizeImage + sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
+
+3-Read clue's scanline, pixel by pixel:___________________________________________
+reading file - fread(data, size, number, inptr);
+data - pointer to a struct that will contain the bytes you're reading
+size - size of each to read = sizeof
+number - number elements to read
+inptr - FILE * to read from
+
+4-Change pixel's color as necessary:______________________________________________
+- each color is represented by 3 bytes:
+  -- amount of blue
+  -- amount of green
+  -- amount of red
+
+ff0000 = blue
+ffffff = white
+
+*RGBTRIPLE
+- struct to represent pixels
+// make a green pixel
+RGBTRIPLE triple;
+triple.rgbtBlue = 0x00;
+triple.rgbtGreen = 0xff;
+triple.rgbtRed = 0x00;
+
+if (triple.rgbtBlue == 0xff)
+{
+printf("I'm feeling blue!\n");
+}
+
+// change to pure blue
+triple.rgbtGreen = 0x00;
+triple.rgbtRed = 0x00;
+
+
+5-Write verdict's scanline, pixel by pixels:_______________________________________
+writing files - fwrite(data, size, number, outptr);
+data - pointer to a struct that will contain the bytes you're writing
+size - size of each to read = sizeof
+number - number elements to read
+inptr -FILE * to write to
+
+*padding
+- each pixel is 3 bytes
+- length of each scanline must be a multiple of 4 bytes
+
+- if the number of pixels isn't a multiple of 4, we need "padding"
+  -- padding is just zeros(0x00)
+
+- clue and verdict have the same width
+  --so the padding is the same!
+
+- padding isn't an RGBTRIPLE
+  -- we can't fread padding
+
+padding = (4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4
+
+*writing padding
+fput(chr, outptr);
+- chr: char to write
+- outptr: FILE * to wrtie to
+fputc(0x00, outptr);
+
+*file position indicator
+fseek(inptr, offset, from);
+inptr: FILE * to seek over
+offset: number of bytes to move cursor
+from: - SEEK_CUR (current position in file)
+      - SEEK_SET (beginning of file)
+      - SEEK_END (end of file)
+
+RGBTRIPLE are 3 bytes
+a group of RGBTRIPLE must go in 4.
+
+RGBTri      RGBTri      RGBTri
+3 bytes     3 bytes     3 bytes
+
+
+
+if () // If the program is executed with fewer or more than two command-line arguments,
+{
+  fprintf();// it should remind the user of correct usage, as with fprintf (to stderr),
+  return 1; // and main should return 1.
+}
+
+if () // If the input file cannot be opened for reading,
+{
+    fprintf(); //program should inform the user as much, as with fprintf (to stderr),
+    return 2; //and main should return 2.
+}
+
+if ()   //If the output file cannot be opened for writing,
+{
+    fprintf(); // program should inform the user as much, as with fprintf (to stderr),
+    return 3; //and main should return 3.
+}
+
+if() //If the input file is not a 24-bit uncompressed BMP 4.0,
+{
+    fprintf(); //the program should inform the user as much, as with fprintf (to stderr),
+    return 4; //and main should return 4.
+}
+
+return 0; //Upon success, main should 0.
