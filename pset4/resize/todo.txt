@@ -1,0 +1,8 @@
+TODO:
+
+- open file
+- update outfile's header info
+- read infile's scanline, pixel by pixel
+- resize horizontally
+- remember padding
+- resize vertically

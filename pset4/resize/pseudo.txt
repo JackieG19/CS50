@@ -1,0 +1,15 @@
+---Pseudocode---
+
+Resizing horizantally (not final)
+
+for each row
+    for each pixel in row
+        write outfile n times
+    write outfile's padding (once row is finished)
+    ship over infile's padding
+    reach the next row in the infile
+
+"rewrite" method
+
+for each
+
