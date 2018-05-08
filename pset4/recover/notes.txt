@@ -1,0 +1,99 @@
+TODO:
+- open memory card file *fopen
+- find beginning of JPEG
+- open a new JPEG
+- write 512 bytes unti new JPEG is found
+- detect end of file
+
+JPEGs - are just sequences of bytes
+each JPEG strats with a distinct header:
+    - first 3 bytes: 0xff 0xd8 0xff
+    - last byte: 0xe0, 0xe1, 0xe2, ...0xef
+stored side-by-side on the memory card
+each block is 512 bytes
+
+memory card - JPEG drawn  out
+[*] - the beginning of a JPEG
+each [box] represents 512 bytes
+_____________________________________________________________________
+|   |   |   |   |   |*  |   |   |   |   |   |   |   |   |   |   |*  |
+---------------------------------------------------------------------
+|   |   |   |   |   |   |   |*  |   |   |   |   |   |   |   |   |   |
+---------------------------------------------------------------------
+|*  |   |   |   |   |   |   |   |*  |   |   |   |   |   |   |   |   |
+---------------------------------------------------------------------
+|   |   |   |*  |   |   |   |   |   |   |   |   |   |   |   |   |   |
+---------------------------------------------------------------------
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+---------------------------------------------------------------------
+|*  |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |EOF| - End Of File
+---------------------------------------------------------------------
+
+Reading file:---------------------
+fread (data, size, number, inptr);
+
+data: pointer to a struct that will contain the bytes you're reading
+size: size of each element to read = sizeof
+number: numer of elements to read
+inptr: FILE * to read from
+
+In the beginning start reading in 512 blocks at a time,
+every time checking to see whether the first 4 bytes
+indicate a JPEG header.
+
+If not, processed to the next block of 512 bytes checking for the header of a JPEG
+Continue this process until we reach the first 512 block where the first 4 bytes do indicate a JPEG header.
+From there found the first JPEG and all blocks side by side will belong to JPEG.
+Continue reading building up the JPEG until reach another block which indicates the header for a JPEG.
+So this JPEG has ended, close that and start a new one continue this process until we reach the end of
+the memory card file.
+
+Reading files:------------------
+fread return number of element successfully read
+fread (buffer, 1, 512, raw_file);   vs.   fread (buffer, 512, 1, raw_file);
+
+JPEG?-------------------------
+each JPEG starts with a distinct header:
+    - first 3 bytes: 0xff 0xd8 0xff
+    - last byte: 0xe0, 0xe1, 0xe2 ... 0xef
+    (this could get messy...)
+
+if (buffer[0] == 0xff &&
+    buffer[1] == 0xd8 &&
+    buffer[2] == 0xff &&
+    buffer[3] & 0xf0) == 0xe0)
+
+Making a new JPEG:---------------
+sprintf (filename, "%03i.jpg", 2);
+- filename : char array to store the resultant string  *002.jpg
+- FILE *img = fopen (filename, "w");
+
+Writing files:--------------------
+fwrite (data size, number, outptr);
+
+data: pointer to the struct that contains the bytes you're reading from
+size,
+number,
+outptr: FILE * to write to
+
+end of file?----------------------
+fread return number of element successfully read
+fread (buffer, 1, 512, raw_file);   vs.   fread (buffer, 512, 1, raw_file);
+
+Reading files:----------------------
+fread (data, size, number, intptrs);
+return how many items of size [size] were read (and ideally, it returns number)
+use it directly in a condition
+
+--------------------pseudocode:-------------------------------
+
+open card file
+repeat until end of card
+    read 512 bytes into a buffer
+    start a new JPEG?
+        yes --> ...
+        no --> ...
+    already found a JPEG?
+        no --> ...
+        yes --> ...
+    close any remaining files
