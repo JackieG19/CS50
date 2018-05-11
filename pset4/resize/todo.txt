@@ -6,3 +6,31 @@ TODO:
 - resize horizontally
 - remember padding
 - resize vertically
+
+
+copy.c
+- open file
+- update header info for outfile
+- reads each scanline, pixel by pixel
+- write each pixel into the output file scanline
+    cp      copy.c      resize.c
+
+
+Bitmaps:
+- just an arrangment of bytes
+- how do we interpret this arrangement?
+- bmp.h
+
+resize bitmap ----> updated header
+
+
+Updating header info:
+- new bmp ----> new header info
+- what's changing?
+    * file size
+    * image size
+    * width, height
+
+
+BITMAPINFOHEADER:
+- bitWidth

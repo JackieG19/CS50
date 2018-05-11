@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <cs50.h>
 #include "bmp.h"
 
 int main(int argc, char* argv[])
