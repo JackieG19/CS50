@@ -1,0 +1,15 @@
+speller.c
+
+1. call load on the dictionary file
+    - dictionary contains valid words, one per line
+2. call check on each word in the text file and prints all misspelled words
+3. call size to determine number of words in dictionary
+4. calls upload to free up memory
+
+
+TODO:
+
+load - the dictionary
+check - if a given word is in the dictionary
+size - return the number of words in the dictionary
+upload - free the dictionary from memory

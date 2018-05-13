@@ -1,0 +1,8 @@
+Check
+
+- case insensitivity
+- assume strings with only alphabetical characters and/or apostrophes
+
+if the word exits, it can be found in the hash table
+
+which
