@@ -1,106 +1,143 @@
-// Implements a dictionary's functionality
-#include <string.h>
-#include <stdio.h>
-#include <stdbool.h>
+// Implements a dictionary's functional
 #include <cs50.h>
-
+#include <ctype.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
 #include "dictionary.h"
 
-typedef struct node
+int wordcount = 0;
+
+typedef struct node //define node struct
 {
-    bool is_word;
-    struct node* children[27];
+    char word[LENGTH + 1];
+    struct node *next;
 }
 
-nodes;
+node;
 
-node* first;
+node *cursor;
 
-int word_count = 0;
+node *hashtable[26]; //create hashtable using "node" struct
+
+/*
+this function will correct for case, then return an int with
+where  the first letter of the word falls in the alphabetically.*/
+int hash(const char *word)
+{
+    int hash = (tolower(word[0]) - 'a');
+    return hash;
+
+}
 
 // Returns true if word is in dictionary else false
 bool check(const char *word)
 {
-    // TODO
-    word is "tom"
-    for (int i = 0, len = strlen; i < len; i++)
+    char wordcheck[LENGTH + 1];
+
+    strcpy(wordcheck, word);
+
+    for (int i = 0; i < strlen(wordcheck); i++)
     {
-        node
-        int index = get_index(word[i]);
-        if (node_ptrindex)
+        wordcheck[i] = tolower(wordcheck[i]);
     }
-}
 
-int index(char c)
-{
-    if (c == '\') // last index
-    return 26;
-    else if (c >= 'a' && c <= 'z');
-    return c - 'a';
-    else if (c >= 'A' && c <= 'Z');
-    return c - 'A';
+    int hashkey = hash(wordcheck);
 
-    return -1; // error index
-}
+    node *head = hashtable[hashkey];
 
-// Return a pointer to a node with intial values : false and all NULL
-node* create_init_node()
-{
-    node* node_ptr = malloc (sizeof(node));
-    node_ptr->is_word =false;
-    for (int i = 0; i < 27; i++)
+    cursor = head;
+
+    while (cursor != NULL)
     {
-        node_ptr->children[i] = NULL;
+        if (strcasecmp(wordcheck, cursor->word) == 0)
+        {
+            return true;
+        }
+        else
+        {
+            cursor = cursor->next;
+        }
     }
-    return node_ptr;
+
+    return false; //if word is not found in dictionary
 }
 
 // Loads dictionary into memory, returning true if successful else false
 bool load(const char *dictionary)
 {
-    // TODO
-    FILE *dict_ptr = fopen(dictionary, "r");
-    if (dict_ptr == NULL)
+    char word[LENGTH + 1];
+
+    FILE *dict = fopen(dictionary, "r");
+    if (dict == NULL)
     {
-        fprintf(stderr, "File does not exist!\n");
+        fprintf(stderr, "Could not open Dictionary");
         return false;
     }
 
-    // intialize c to get a char from dictionary and checks until we reach End Of File
-    node* first = create _init_node();
-    int index;
-    for (char c = fgetc(dict_ptr); c != EOF; c = fgetc(dict_ptr))
+    /*scan through the dictionary for a string, put that string in the variable "word".*/
+    while (fscanf(dict, "%s", word) != EOF) // Execute loop until end of dictionary file
     {
-        if(c != '\n') // if the letter is not a newline char then we need to load this letter in the trie
+        //malloc a node * for new word
+        node *new_node = malloc(sizeof(node));
+        new_node->next = NULL;
+
+        //if pointer to node returns NULL...
+        if (new_node == NULL)
         {
-            index = get_index(c);
-            if (node_ptr->children[index] == NULL)
-            {
-                node_ptr->children[index] - create_init_node();
-            }
-            node_ptr = node_ptr->children[index]
+            unload(); // ...unload dictionary and quit Speller
+            return false;
         }
-        else
+
+        strcpy(new_node->word, word); //copy word into node
+
+        int hashvalue = hash(word); // gets the value from the hash function for (word)
+
+        //if this bucket in the hashtable array has not been assigned a node yet...
+        if (hashtable[hashvalue] == NULL)
         {
-            node_ptr->is_word = true; // marks the end of the word
-            word_count++; // increament word count to find a word from dict_ptr
-            node_ptr = first; // go back to homebase
+            hashtable[hashvalue] = new_node; //...simply add "new_node"
         }
+
+        else // add "new_node" to the list of values stored at this bucket in the array
+        {
+            // both pointer are pointing to the old "first" node in the list
+            new_node->next = hashtable[hashvalue];
+
+            //point hashtable/value to the new node in the list
+            hashtable[hashvalue] = new_node;
+            // insert it in front of the node that was previously first on the list.
+        }
+
+        wordcount++;
     }
 
-    return false;
+    fclose(dict);
+    return true;
 }
 
 // Returns number of words in dictionary if loaded else 0 if not yet loaded
 unsigned int size(void)
 {
-    // TODO
-    return word_count;
+
+    return wordcount;
 }
 
 // Unloads dictionary from memory, returning true if successful else false
 bool unload(void)
 {
-    // TODO
-    return false;
+    for (int i = 0, n = 26; i < n; i++)
+    {
+        cursor = hashtable[i];
+
+        while (cursor != NULL)
+        {
+            node *temp = cursor;
+            cursor = cursor->next;
+            free(temp);
+        }
+    }
+    return true;
 }
