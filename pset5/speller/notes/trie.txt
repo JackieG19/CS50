@@ -1,0 +1,31 @@
+Tries
+
+every node contains an array of node pointer
+- one for every letter in the alphabet + '\"
+- each element in the array point to another node
+    if that node is NULL, then that letter isn't the next letter of any word in the that sequence
+
+every node indicates whether its the last character of a word
+
+load
+- for every dictionary word, iterate through the trie
+- each element in children corresponds to a different letter
+- check the value at children[i]
+    if NULL, malloc a new node, have children[i] point to it
+    if not NULL, move to a new node and continue
+- if at end of word, set is_word to true
+
+"fox"
+f: root->children[5]
+o: root->children[5]-->children[14]
+x: root->children[5]-->children[14]-->children[23]
+
+root
+[a][b][c][d][e][f][g][h][i][j][k][l][m][n][o][p][q][r][s][t][u][v][w][x][y][z]
+                |
+[a][b][c][d][e][f][g][h][i][j][k][l][m][n][o][p][q][r][s][t][u][v][w][x][y][z]
+                                           |
+[a][b][c][d][e][f][g][h][i][j][k][l][m][n][o][p][q][r][s][t][u][v][w][x][y][z]
+                                                                      |
+                                                                    word = true
+

@@ -1,0 +1,79 @@
+Load
+
+for each word in the dictionary text file store
+it in the dictionary's data structure: link list, hashtable, tries
+
+* Hashtable *
+
+- an array of bucket
+- hash function: return the bucket that a given key belongs to
+- hashtable: 2 buckets
+- hash function:
+    if (n% 2 == 1)
+    {
+      odd box
+    }
+    else
+    {
+      even box
+    }
+
+A hashtable is an array of bucket
+- each bucket is a link list
+
+link lists are comprosed of nodes
+
+nodes:
+each nodes has a value, as well as a pointer to the next node
+
+linked list:
+important
+- don't lose any links
+- last node points to NULL
+
+hashtable - link list
+
+bucket
+^       |------------value------------|
+[]---->[12|-]--->[5|-]--->[1|-]--->[9|-]
+[]---->[15|-]--->[12|-]-->[19|-]-->[11|-]
+[]---->[23|-]--->[27|-]-->[20|-]-->[21|-]
+[]---->[39|-]--->[35|-]-->[37|-]-->[32|-]
+
+Every node contains an integer value as well as a node pointer
+
+How we go about creating nodes?
+Start by allocoting enough space in mermory to store our node,
+to do that use the malloc function - will need to know how many bytes to allocate in memory,
+so use sizeof function to calculate the size and bytes of the node
+
+make a new word:
+scan dictionary word by word
+
+while (fscanf(file, "%s", word) ! = EOF)
+^this piece of code takes the dictionary file, looks for a string
+    then puts that string into a variable called word
+    will excute this loop until the end of the dictionary file reached
+{
+    what goes inside the loop?
+    Malloc a node* for each new word
+}
+
+If succeds then procced and copy that word into your node
+
+
+Hash function:
+- takes a string
+- return an index
+    * index < the number of buckets
+- deterministic
+    *the same value needs to map to the same bucket every time
+
+
+once you've made hash function
+new_node->word has the word from the dictionary
+
+hashing new_node->word will give us the index of a bucket n the hashtable
+insert into the linked list
+
+

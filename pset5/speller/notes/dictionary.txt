@@ -2,11 +2,20 @@
 #include <string.h>
 #include <stdbool.h>
 #include <cs50.h>
-
 #include "dictionary.h"
 
-// Returns true if word is in dictionary else false
+typedef struct node
+{
+    bool is_word;
+    struct node* children[27];
+}
+node;
+node *root;
+
+// *CHECK - Returns true if word is in dictionary else false
 bool check(const char *word)
+
+*traverse linked list
 {
     // TODO
     node *cursor = head;
@@ -18,7 +27,7 @@ bool check(const char *word)
     return false;
 }
 
-// Loads dictionary into memory, returning true if successful else false
+// *LOAD - Loads dictionary into memory, returning true if successful else false
 bool load(const char *dictionary)
 {
     // TODO
@@ -38,6 +47,18 @@ bool load(const char *dictionary)
     return false;
 }
 
+while (fscanf(file, "%s", word) ! = EOF)
+{
+    node* new_node = malloc(sizeof(node));
+    if (new_node == NULL)
+    {
+        unload();
+        return false;
+    }
+}
+
+strcpy (new_node->word, word); // copy word into node
+
 // Returns number of words in dictionary if loaded else 0 if not yet loaded
 unsigned int size(void)
 {
@@ -45,9 +66,16 @@ unsigned int size(void)
     return 0;
 }
 
-// Unloads dictionary from memory, returning true if successful else false
+// *UPLOAD - Unloads dictionary from memory, returning true if successful else false
 bool unload(void)
 {
     // TODO
+    node* cursor = head;
+    while (cursor != NULL)
+    {
+        node *temp = cursor;
+        cursor = cursor->next;
+        type(temp);
+    }
     return false;
 }

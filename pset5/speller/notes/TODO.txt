@@ -13,3 +13,11 @@ load - the dictionary
 check - if a given word is in the dictionary
 size - return the number of words in the dictionary
 upload - free the dictionary from memory
+
+
+TIPS:
+pass in a small dictionary
+    - usage ./speller [dictionary] text
+    - default larger
+    - also try small
+    - make your own

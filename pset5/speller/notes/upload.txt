@@ -1,0 +1,15 @@
+Upload
+
+freeing link list
+
+node *cursor = head;
+
+upload from bottom to top
+travel to lowest possiable note
+    - free all pointer in childrn
+    - backtrack upward, freeing all element in each children array until you hit root node
+recursion
+
+
+valgrind -v == leah -check =full
+austinpower.txt

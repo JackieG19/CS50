@@ -5,4 +5,24 @@ Check
 
 if the word exits, it can be found in the hash table
 
-which
+which bucket would the words be in?
+- hashtable[hash(word)]
+
+search in that linked list
+- strcasecmp
+
+            cursor - points to the very first node in the linked list
+            ^
+head----->[A|-]--->[B|-]--->[C|-]--->[E|-]--->0 = NULL
+
+traverse a trie
+
+for each letter in input word
+    go to corresponding element in children
+        if NULL, word is mispelled
+        if not NULL, move to next letter
+    once at end of inout word
+        check if is_word is true
+
+
+
