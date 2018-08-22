@@ -1,4 +1,4 @@
-in Python:
+C into Python:
 
 hello.py
 python hello.py
