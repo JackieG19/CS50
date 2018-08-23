@@ -1,0 +1,64 @@
+C into Python:
+
+hello.py
+python hello.py
+
+print("hello world")
+
+get_int
+import cs50
+
+while condition:
+    # something happens
+
+do while loop
+
+while true: ------------    execute at
+    # prompt user ------    least once
+    if condition
+        break
+
+if bool1 or bool2
+if bool1 and bool2
+
+for i in range (height):
+# print space
+# print hashes
+# print new line
+
+
+# print something with a newline
+    print("hello world")
+
+# print something without newline
+    print("hello world", end="")
+
+# print something 50 times
+    print("#" * 50)
+
+# print newline
+    print()
+
+
+get_float
+
+% modulo math - reminder of division
+x // y  divide integer
+x / y   float division
+
+if condition1:
+    #TODO
+
+elif condition2:
+    #TODO
+
+else:
+    #TODO
+
+
+sys.argv[1]
+int(sys.argv[1])
+
+get_string
+
+ord  chr  = asc
