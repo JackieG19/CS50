@@ -2,10 +2,43 @@
 
 {% block body %}
 
-    <div class="col">
+   <div class="col">
         <form action="/compare" enctype="multipart/form-data" method="post">
+            <!--TODO-->
+            <div class="input"> <!--a file called file1-->
+                <input type="file" name="file1">
+            </div>
 
-            <!-- TODO -->
+            <div class="input"> <!--a file called file2-->
+                <input type="file" name="file2">
+            </div>
+
+            <!--a value of lines, sentences, or substrings for an input called algorithm-->
+            <div class="input">
+                <div class="radio1">
+                    <label class="check">
+                        <input class="checkInput" name="algorithm" type="radio" value="lines">
+                        Compare lines
+                    </label>
+                </div>
+
+                <div class="radio2">
+                    <label class="check">
+                        <input class="checkInput" name="algorithm" type="radio" value="sentences">
+                        Compare sentences
+                    </label>
+                </div>
+
+                <div class="radio3">
+                    <label class="check">
+                        <input class="checkInput" name="algorithm" type="radio" value="substrings">
+                        Compare substrings
+                        <!--a number called length-->
+                        <input class="form-control form-control-sm" min="1" name="length" placeholder="of length n" type="number">
+                    </label>
+                </div>
+            </div>
+            <button class="btn btn-default" type="submit">Compare</button>
 
         </form>
     </div>
