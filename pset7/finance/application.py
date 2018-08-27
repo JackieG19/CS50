@@ -48,6 +48,8 @@ def index():
 @login_required
 def buy():
     """Buy shares of stock"""
+    if request.method == "GET":
+        return render.template("buy.html")
     return apology("TODO")
 
 
@@ -110,12 +112,35 @@ def logout():
 @login_required
 def quote():
     """Get stock quote."""
-    return apology("TODO")              #***
+    return apology("TODO")
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
+    if request.method == "POST":
+        # submit username
+        if not request.form.get("username"):
+            return apology("provide your username")
+
+        # submit password
+        elif not request.form.get("password"):
+            return apology("provide your password")
+
+        # grabbing from the phpliteadmin SQL
+        result = db.execute("INSERT INTO users (username, hash) VALUES(:username, :hash)", username=request.form.get("username"), hash = generate_password_hash(request.form.get("password")))
+        if not result:
+            return apology("username already exists")
+        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+
+        # remember the user that has logged in
+        session["user_id"] = rows[0]["id"]
+        return redirect("/")
+        # return redirect(url_for("login"))
+
+    else:
+        return render_template("register.html")
+
     return apology("TODO")
 
 
