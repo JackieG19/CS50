@@ -1,0 +1,15 @@
+TODO
+- read distribution code
+- register      - quote
+- buy           - index
+- sell          - history
+
+application.py
+* lots of import
+* ensures reponses aren't cached
+* configure flask and flash session
+* configure cs50 library to use SQLite database
+* @login_required
+    - in order to access given route, the user must be logged in
+
+
