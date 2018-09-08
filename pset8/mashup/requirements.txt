@@ -1,0 +1,49 @@
+cs50
+feedparser
+Flask
+
+Start Flask’s built-in web server (within mashup/): flask run
+
+Via CS50’s file browser: phpliteadmin mashup.db
+Here on out, though, if you’d prefer a command line,
+you’re welcome to use sqlite3 instead of phpLiteAdmin.
+
+
+TODO:
+- distribution code
+- mashup.db
+
+- application.py
+    * articles
+    * search
+
+- script.js
+    * configure
+    * addMaker
+    * removeMarkers
+
+SQL, HTML, RSS, JS, Python, Ajax, jQuery, JSON
+- parse RSS feeds from Google News using python
+- return articles titles and links to our web app via Ajax as JSON
+- Index.html * embedded google map  * html form
+
+applicatin.py:
+* index - API key
+* articles - TODO
+* search - TODO
+* update - find up to 10 places within view
+* jsonify - from flask
+
+mashup.db:
+- decide appropriate database schema
+- import US.txt into table places
+
+articles:
+- geo is submitted to / articles as a GET parameter
+- output JSON array of object
+    * each object is
+- request.args.get("geo")
+    * check for missing argument
+    * runtimeError
+- look up
+- JSONify
