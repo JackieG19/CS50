@@ -6,7 +6,7 @@ python hello.py
 print("hello world")
 
 get_int
-import cs50
+import cs50 = #include cs50.h
 
 while condition:
     # something happens

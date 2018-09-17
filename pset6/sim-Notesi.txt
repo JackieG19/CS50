@@ -5,7 +5,7 @@ In common:
 
 index.html displays from where user can select 2 files to compare
 
-Lines - TODO: -------------------------------------
+Lines - TODO: ----------------------------------------
 * take in strings a and b
 * split each string into lines (ex. at the end)
 * comput a list of all lines appear in both a and b
@@ -22,7 +22,7 @@ data structure
  must print only once!
 
 
-Sentence - TODO: --------------------------------------
+Sentence - TODO: -----------------------------------------
 * take in string inputs a and b
 * split each string into sentences
 * compute list of all sentence appearing in both a and b
@@ -33,7 +33,7 @@ splitting a string into sentence:
 ["hello there!", "how are you?"]
 
 
-Substrings - TODO: -------------------------------------
+Substrings - TODO: ----------------------------------------
 * take in string input a, b and substring length n
 * split each string into all substrings of length n
 * compute list of all substrings appearing in both a and b
@@ -44,12 +44,12 @@ n = 2  "hello" ---> ["he", "el", "ll", "lo"]
 n = 3  "hello" ---> ["hel", "ell", "llo"]
 
 * Extract substrings from string
-  - s[i:j] returns the substring of s from index i to
-    (but not including) index j
+  - s[i:j] returns the substring of s from
+    index i to(but not including) index j
 * May want to write a helper funtion
 
 
-index.html - TODO:
+index.html - TODO: ----------------------------------------------
 * inside the body block, add a form
 * make sure form sends correctly encoded POST request to/compare
 * let user choose file1, file2, algorithm, length
