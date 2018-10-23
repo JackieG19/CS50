@@ -64,8 +64,30 @@ $(document).ready(function() {
 function addMarker(place)
 {
     // TODO
-}
+    marker.setMap(map);
+    marker.setAnimation(google.maps.Animation.DROP);
+    marker.setPosition(newLatLong);
 
+    marker.addListener('click', function() {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        showInfo(marker);
+
+    let parameters = {
+        geo: newZip
+    };
+
+        $.getJSON("/articles", parameters, function(data, textStatus, jqXHR) {
+            var content = '<ul>';
+
+            data.forEach(function(row) {
+               content += '<li><a href="' + row.link + '" target="_blank">' +  row.title + '</a></li>';
+            });
+
+            content += '</ul>';
+            showInfo(marker, content);
+        });
+    });
+}
 
 // Configure application
 function configure()
@@ -139,6 +161,7 @@ function configure()
 function removeMarkers()
 {
     // TODO
+    marker.setMap(null);
 }
 
 
