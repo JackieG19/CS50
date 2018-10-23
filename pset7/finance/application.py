@@ -91,19 +91,12 @@ def buy():
         if not symbl:
             return apology ("Enter the symbol")
 
-        while True:
+#        while True:
             #Number of shares to buy
-            num = request.form.get("number")
-
-            try:
-                number = float (num)
-            except ValueError:
-                return apology ("Enter valid number of buy stocks")
-                continue
-            else:
-                break
-        if number is None or number == '' or number < 1:
-            return apology ("Enter valid number of buy stocks")
+#            num = request.form.get("number")
+#           return apology ("Enter valid number of buy stocks")
+#        if number is None or number == '' or number < 1:
+#            return apology ("Enter valid number of buy stocks")
 
 
         #Lookup and save dict in quoted
