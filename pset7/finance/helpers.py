@@ -4,8 +4,8 @@ import urllib.request
 from flask import redirect, render_template, request, session, url_for
 from functools import wraps
 
-def apology(top="", bottom=""):
-    """Renders message as an apology to user."""
+def apology(message, code=400):
+    """Render message as an apology to user."""
     def escape(s):
         """
         Escape special characters.
@@ -13,10 +13,10 @@ def apology(top="", bottom=""):
         https://github.com/jacebrowning/memegen#special-characters
         """
         for old, new in [("-", "--"), (" ", "-"), ("_", "__"), ("?", "~q"),
-            ("%", "~p"), ("#", "~h"), ("/", "~s"), ("\"", "''")]:
+                         ("%", "~p"), ("#", "~h"), ("/", "~s"), ("\"", "''")]:
             s = s.replace(old, new)
         return s
-    return render_template("apology.html", top=escape(top), bottom=escape(bottom))
+    return render_template("apology.html", top=code, bottom=escape(message)), code
 
 def login_required(f):
     """

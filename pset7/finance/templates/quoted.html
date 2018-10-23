@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-<action="{{ url_for('quoted') }}" method="post">
+<action="{{ url_for('quoted') }}" methods="post", "get">
 {% block title %}
     Price of stock.
 {% endblock %}
