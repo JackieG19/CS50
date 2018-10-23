@@ -61,4 +61,4 @@ int(sys.argv[1])
 
 get_string
 
-ord  chr  = asc
+ord chr = asc

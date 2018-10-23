@@ -36,7 +36,7 @@ splitting a string into sentence:
 Substrings - TODO: ----------------------------------------
 * take in string input a, b and substring length n
 * split each string into all substrings of length n
-* compute list of all substrings appearing in both a and b
+* compute list of all substrings appear in both a and b
 * return the list
 
 splitting into substring:

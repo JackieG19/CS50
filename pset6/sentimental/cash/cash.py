@@ -7,7 +7,7 @@ while True:
             break
 
 coins = 0
-cents = round(amount * 100)
+cents = round(amount * 100) # $1.00
 
 coins += cents // 25
 cents %= 25
