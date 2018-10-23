@@ -5,6 +5,7 @@ Flask
 Start Flask’s built-in web server (within mashup/): flask run
 
 Via CS50’s file browser: phpliteadmin mashup.db
+
 Here on out, though, if you’d prefer a command line,
 you’re welcome to use sqlite3 instead of phpLiteAdmin.
 

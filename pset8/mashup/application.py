@@ -31,7 +31,7 @@ def index():
 def articles():
     """Look up articles for geo"""
 
-    # TODO
+    # TODO:
     items = lookup(request.args.get("geo"))
     return jsonify(items[:5])
 
@@ -40,7 +40,7 @@ def articles():
 def search():
     """Search for places that match query"""
 
-    # TODO
+    # TODO:
     q = request.args.get("q") + "%"
     places = db.execute("SELECT * FROM places WHERE postal_code LIKE :q OR admin_code1 LIKE :q OR place_name LIKE :q", q=q)
     print("banana", places)
