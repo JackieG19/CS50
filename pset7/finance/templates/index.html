@@ -8,11 +8,11 @@ Your Portfolio
 <style type="text/css">
   table{
 
-    
+
     width: 100%;
     height: 50px;
   }
-  
+
   table td,th{
     border: 1px solid black;
     text-align: center;
@@ -20,7 +20,7 @@ Your Portfolio
   table th{
       background-color: #4CAF50;
   }
-  
+
 </style>
 <table>
     <tr>
@@ -29,8 +29,7 @@ Your Portfolio
         <th>Current Price</th>
         <th>Total</th>
         <th>Current Cash</th>
-        <th>Grand Total</th>
-        
+
     </tr>
 
     {% for stock in symbol %}
@@ -40,11 +39,10 @@ Your Portfolio
             <td>{{ stock["quoteprice"] }}</td>
             <td>{{stock["total_shares"] * stock ["quoteprice"]}} </td>
              {% if loop.first %}
-            <td rowspan = "{{loop.length}}">{{cash}}</td>
-            <td rowspan = "{{loop.length}}">{{gtotal}}</td>
+            <td rowspan = "{{loop.length}}">{{'%0.2f'| format(cash|float)}}</td>
             {% endif %}
     {% endfor %}
-        
-        
+
+
 
 {% endblock %}

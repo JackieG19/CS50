@@ -1,8 +1,9 @@
-import csv
-import urllib.request
+import requests
+import urllib.parse
 
-from flask import redirect, render_template, request, session, url_for
+from flask import redirect, render_template, request, session
 from functools import wraps
+
 
 def apology(message, code=400):
     """Render message as an apology to user."""
@@ -18,53 +19,43 @@ def apology(message, code=400):
         return s
     return render_template("apology.html", top=code, bottom=escape(message)), code
 
+
 def login_required(f):
     """
     Decorate routes to require login.
 
-    http://flask.pocoo.org/docs/0.11/patterns/viewdecorators/
+    http://flask.pocoo.org/docs/0.12/patterns/viewdecorators/
     """
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if session.get("user_id") is None:
-            return redirect(url_for("login", next=request.url))
+            return redirect("/login")
         return f(*args, **kwargs)
     return decorated_function
+
 
 def lookup(symbol):
     """Look up quote for symbol."""
 
-    # reject symbol if it starts with caret
-    if symbol.startswith("^"):
-        return None
-
-    # reject symbol if it contains comma
-    if "," in symbol:
-        return None
-
-    # query Yahoo for quote
-    # http://stackoverflow.com/a/21351911
+    # Contact API
     try:
-        url = "http://download.finance.yahoo.com/d/quotes.csv?f=snl1&s={}".format(symbol)
-        webpage = urllib.request.urlopen(url)
-        datareader = csv.reader(webpage.read().decode("utf-8").splitlines())
-        row = next(datareader)
-    except:
+        response = requests.get(f"https://api.iextrading.com/1.0/stock/{urllib.parse.quote_plus(symbol)}/quote")
+        response.raise_for_status()
+    except requests.RequestException:
         return None
 
-    # ensure stock exists
+    # Parse response
     try:
-        price = float(row[2])
-    except:
+        quote = response.json()
+        return {
+            "name": quote["companyName"],
+            "price": float(quote["latestPrice"]),
+            "symbol": quote["symbol"]
+        }
+    except (KeyError, TypeError, ValueError):
         return None
 
-    # return stock's name (as a str), price (as a float), and (uppercased) symbol (as a str)
-    return {
-        "name": row[1],
-        "price": price,
-        "symbol": row[0].upper()
-    }
 
 def usd(value):
-    """Formats value as USD."""
-    return "${:,.2f}".format(value)
+    """Format value as USD."""
+    return f"${value:,.2f}"

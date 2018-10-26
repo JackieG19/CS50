@@ -40,95 +40,74 @@ db = SQL("sqlite:///finance.db")
 @login_required
 def index():
     """Show portfolio of stocks"""
-    #Remember id
-    ide = session["user_id"]
+    # Remember id
+    ident = session["user_id"]
 
-    #Take all info from users data table and determine cash of user.
-    row = db.execute ("select * from users where id = :ii" , ii = ide)
+    # Info from data table and cash of user
+    row = db.execute ("select * from users where id = :ii" , ii = ident)
 
-    #take info about shares user has bought
-    simbol = db.execute("SELECT symbol, price, SUM(shares) as total_shares FROM portfolio WHERE id = :ii GROUP BY symbol ORDER BY symbol",ii=ide)
+    # Take info about stocks bought
+    simbol = db.execute("SELECT symbol, price, SUM(shares) as total_shares FROM portfolio WHERE id = :ii GROUP BY symbol ORDER BY symbol",ii=ident)
 
-    #if user has not bought any sahres then display noshare html file.
+    # If user has not bought stocks
     if not simbol:
-
-    #Return user a message in html and his cash holdings.
         return render_template ("noshares.html",cash = row[0]["cash"])
     else:
         total = 0
 
-        #Iterrate over each element in symb
+        # Iterrate over each element in simbol
         for share in simbol:
 
-            #Get symbol of each element
+            # Get symbol of each element
             symbol = share ["symbol"]
 
-            #Lookup current price of that specific symbol/sahre
+            # Lookup current price of stock symbol
             quote = lookup (symbol)
 
-            #save each current price
+            # the current price
             share["quoteprice"] = quote["price"]
 
-            #Total equels fresh quote price of  each stock * sum of shares of each stock
+            # Total quote price of each stock with sum of shares of each stock
             total += quote["price"] * share ["total_shares"]
 
-        #grand is equel to total + the cash user has in his account
-        grand = total + row[0]["cash"]
+        # total plus the cash user has
+        totl = total + row[0]["cash"]
 
-        #render values
-        return render_template ("index.html", symbol = simbol,cash = row[0]["cash"],total = grand)
+        # render values
+        return render_template ("index.html", symbol = simbol,cash = row[0]["cash"],total = totl)
     #return apology("TODO")
 
 
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
 def buy():
-    """Buy shares of stock"""
+    """Buy shares of stock."""
     if request.method == "POST":
+        print("post buy execute")
 
-        #take symbol from user
-        symbl = request.form.get("symbol")
-        if not symbl:
-            return apology ("Enter the symbol")
+        if not request.form.get("symbol"):
+            return apology("must enter a stock symbol")
+        elif not request.form.get("shares"):
+            return apology("must enter number of shares")
 
-#        while True:
-            #Number of shares to buy
-#            num = request.form.get("number")
-#           return apology ("Enter valid number of buy stocks")
-#        if number is None or number == '' or number < 1:
-#            return apology ("Enter valid number of buy stocks")
+        symbol = request.form.get("symbol")
+        quote = lookup(symbol)
 
+        if not quote:
+            return apology("must enter valid stock symbol")
 
-        #Lookup and save dict in quoted
-        quoted = lookup(symbl)
-
-        #If symbol is invalid return apology
-        if not quoted:
-            return apology ("Invalid stock")
+        user = db.execute("SELECT cash FROM users WHERE id=:userId;", userId=session["user_id"])
+        userBalance = float(user[0]["cash"])
+        totalCost = quote["price"]*int(request.form.get("shares"))
+        if totalCost>userBalance:
+            return apology("not enough funds for purchase")
         else:
-            #qtd saves price of share
-            qtd = quoted["price"]
-
-            #price of single share * Number of sahres required to buy
-            prc = float(qtd) * number
-
-            #remember session id
-            ide = session["user_id"]
-
-            csh = db.execute("SELECT * FROM users WHERE id = :ide", ide = ide)
-
-            #Only go forward if user have enough
-            if prc <= csh[0]["cash"]:
-                db.execute("INSERT INTO portfolio (id, symbol,price,shares,action,dtime) VALUES (:ide, :symbol, :price, :shares,'Buy', DateTime('now'))", ide = ide,symbol = symbl, price = prc, shares = number)
-                db.execute("UPDATE users SET cash = :cash WHERE id = :ide",cash = csh[0]["cash"] - prc, ide = ide)
-                return render_template("buy.html")
-            else:
-                return apology ("Not enough cash to buy stocks")
+            db.execute("INSERT INTO portfolio (symbol, shares, price, id) VALUES (:symbol, :shares, :price, :user_id);", symbol=symbol, shares=request.form.get("shares"), price=quote['price'], user_id=session["user_id"])
+            db.execute("UPDATE users SET cash=cash-:cost WHERE id=:userId;", cost=totalCost, userId=session["user_id"])
+            print("bought stocks")
+        return redirect("/")
     else:
         return render_template("buy.html")
-
-    #return apology("TODO")
-
 
 @app.route("/history")
 @login_required
@@ -136,13 +115,10 @@ def history():
     """Show history of transactions"""
     row = db.execute("SELECT * FROM users WHERE id = :ide", ide = session["user_id"])
 
-    #Select all from portfolio
     simbol = db.execute("SELECT * FROM portfolio WHERE id = :ide",ide = session["user_id"])
 
-    #if user has not bought any sahres then display noshare html file.
+    #if user has not bought any stock
     if not simbol:
-
-    #Return user a message in html and his cash holdings.
         return render_template ("noshares.html",cash = row[0]["cash"])
 
     return render_template ("history.html", symbol = simbol)
@@ -242,7 +218,7 @@ def register():
         if not request.form.get("password"):
             return apology("Must provide password", 400)
 
-        # Ensure that password was entered twice
+        # Ensure that password was entered again
         if not request.form.get("confirmation"):
             return apology("Enter password again", 400)
 
@@ -250,7 +226,7 @@ def register():
         if not request.form.get("password") == request.form.get("confirmation"):
             return apology("Passwords must match", 400)
 
-        # Insert data into database
+        # Insert data in the database
         signup = db.execute("INSERT INTO users (username, hash) VALUES(:username, :hash_password)",
                             username = request.form.get("username"),
                             hash_password = generate_password_hash(request.form.get("password")))
@@ -268,20 +244,21 @@ def sell():
     """Sell shares of stock"""
     if request.method == "POST":
 
-        #Remember id
+        # Remember id
         ide = session["user_id"]
 
-        #Get the symbol
+        # Get the symbol
         sym = request.form.get("symbol")
         if not sym:
             return apology ("Must enter the symbol")
 
-        #Get number of shares and take info about shares user has of that symbol
-        sybl = db.execute ("select * from portfolio where id = :ii AND symbol = :sym" , ii = ide,sym = sym)
+        # Get number of stocks and take user's shares of that symbol
+        sybl = db.execute ("select * from portfolio where id = :ii AND symbol = :sym", ii = ide, sym = sym)
 
-        #if user has not bought any sahres
+        # if user has not bought any stock
         if not sybl:
-            return redirect("/") #Go back to index page
+            # go back to index page
+            return redirect("/")
 
         while True:
             num = request.form.get("number")
@@ -296,28 +273,27 @@ def sell():
         if numb is None or numb == '' or numb < 1 or numb > sybl[0]["shares"]:
             return apology ("Enter valid number of sell stocks")
 
-        #Take all info about user for cash
         row = db.execute ("select * from users where id = :ii" , ii = ide)
 
-        #Lookup and save dict in quoted
+        # Lookup and save dict quoted
         quoted = lookup(sym)
 
-        #If symbol is invalid return apology
+        # If symbol is invalid
         if not quoted:
             return apology ("Invalid stock")
 
         else:
-            #Take price from dict quoted
+            # Take price from dict quoted
             qtd = quoted["price"]
 
-            #Multiply current price with number of shares to determine total value of shares sold
+            # Multiply current price with number of stocks to determine total value of stocks sold
             prc = float(qtd)*numb
 
-            #Add current price of the shares to user cash
+            # Add current price of stock to user cash
             db.execute("UPDATE users SET cash = :cash WHERE id = :ide",cash = row[0]["cash"] + prc, ide = ide)
 
-            #Make a negative sale in the portfolio
-            db.execute("INSERT INTO portfolio (id, symbol,price,shares,action,dtime) VALUES (:ide, :symbol, :price, :shares,'Sell', DateTime('now'))", ide = ide,symbol = sym, price = prc, shares = -numb)
+            # =negative number of sale
+            db.execute("INSERT INTO portfolio (id, symbol, price, shares, action, dtime) VALUES (:ide, :symbol, :price, :shares,'Sell', DateTime('now'))", ide = ide, symbol = sym, price = prc, shares = -numb)
             return redirect("/")
     else:
         return render_template("sell.html")
@@ -327,9 +303,9 @@ def sell():
 @app.route("/addcash", methods=["GET", "POST"])
 @login_required
 def addcash():
-    #For personal touch add cash to user
+    # add cash to user
     if request.method == "POST":
-        #Take amount to be added
+        # Take amount to be added
         while True:
             num = request.form.get("amount")
             try:
@@ -342,21 +318,20 @@ def addcash():
         if numb is None or numb == '' or numb < 1:
             return apology ("Enter valid amount")
         else:
-            #Take user cash
+            # takes user cash
             row = db.execute ("select cash from users where id = :ii" , ii = session["user_id"])
-            #Now add the amount to users data base.
+
+            # Add the amount to users database
             db.execute("UPDATE users SET cash = :cash WHERE id = :ide",cash = row[0]["cash"] + numb, ide = session["user_id"])
         return redirect("/")
 
     else:
-        #This programe is taking me straight here.
         return render_template("addcash.html")
 
 
 def errorhandler(e):
     """Handle error"""
     return apology(e.name, e.code)
-
 
 # listen for errors
 for code in default_exceptions:
